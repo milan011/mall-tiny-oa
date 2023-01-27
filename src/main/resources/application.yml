@@ -3,7 +3,7 @@ server:
 
 spring:
   application:
-    name: mall-tiny
+    name: mall-tiny-oa
   profiles:
     active: dev
 #  main:
