@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.macro.mall.tiny.modules.ams.mapper.AmsProjectMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.macro.mall.tiny.modules.ams.model.AmsProject">
+        <id column="id" property="id" />
+        <result column="pro_id" property="proId" />
+        <result column="department" property="department" />
+        <result column="collection_compnay" property="collectionCompnay" />
+        <result column="bank_name" property="bankName" />
+        <result column="bank_account" property="bankAccount" />
+        <result column="contract_name" property="contractName" />
+        <result column="contract_code" property="contractCode" />
+        <result column="contract_money" property="contractMoney" />
+        <result column="actual_money" property="actualMoney" />
+        <result column="pay_reason" property="payReason" />
+        <result column="remark" property="remark" />
+        <result column="cumul_invoice" property="cumulInvoice" />
+        <result column="cumul_pay" property="cumulPay" />
+        <result column="shuld_pay" property="shuldPay" />
+        <result column="ths_time" property="thsTime" />
+        <result column="ths_time_want" property="thsTimeWant" />
+        <result column="uppercase" property="uppercase" />
+        <result column="type_id" property="typeId" />
+    </resultMap>
+
+</mapper>

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.macro.mall.tiny.modules.ams.mapper.AmsProcessMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.macro.mall.tiny.modules.ams.model.AmsProcess">
+        <id column="id" property="id" />
+        <result column="name" property="name" />
+        <result column="apply_user_id" property="applyUserId" />
+        <result column="examine_user_id" property="examineUserId" />
+        <result column="apply_type_id" property="applyTypeId" />
+        <result column="apply_type_name" property="applyTypeName" />
+        <result column="steps_concent" property="stepsConcent" />
+        <result column="create_time" property="createTime" />
+        <result column="end_time" property="endTime" />
+        <result column="remark" property="remark" />
+        <result column="status" property="status" />
+    </resultMap>
+
+</mapper>

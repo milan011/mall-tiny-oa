@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.macro.mall.tiny.modules.ams.mapper.AmsReimbursementMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.macro.mall.tiny.modules.ams.model.AmsReimbursement">
+        <id column="id" property="id" />
+        <result column="pro_id" property="proId" />
+        <result column="department" property="department" />
+        <result column="reim_reason" property="reimReason" />
+        <result column="reim_money" property="reimMoney" />
+        <result column="uppercase" property="uppercase" />
+        <result column="pay_people" property="payPeople" />
+        <result column="bank_account" property="bankAccount" />
+        <result column="bank_name" property="bankName" />
+        <result column="bill_num" property="billNum" />
+    </resultMap>
+
+</mapper>
