@@ -10,6 +10,9 @@ import com.macro.mall.tiny.modules.ums.service.UmsDepartmentService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
+import java.util.List;
+
 /**
  * <p>
  * 后台部门表 服务实现类
@@ -20,6 +23,22 @@ import org.springframework.stereotype.Service;
  */
 @Service
 public class UmsDepartmentServiceImpl extends ServiceImpl<UmsDepartmentMapper, UmsDepartment> implements UmsDepartmentService {
+
+  @Override
+  public boolean create(UmsDepartment department) {
+    department.setCreateTime(new Date());
+    department.setAdminCount(0);
+    department.setSort(0);
+    return save(department);
+  }
+
+  @Override
+  public boolean delete(List<Long> ids) {
+    boolean success = removeByIds(ids);
+//    adminCacheService.delResourceListByRoleIds(ids);
+    return success;
+  }
+
   @Override
   public Page<UmsDepartment> list(String keyword, Integer pageSize, Integer pageNum) {
     Page<UmsDepartment> page = new Page<>(pageNum,pageSize);

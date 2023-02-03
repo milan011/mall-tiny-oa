@@ -10,6 +10,8 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 /**
  * <p>
  * 后台部门表 前端控制器
@@ -33,6 +35,40 @@ public class UmsDepartmentController {
       @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
     Page<UmsDepartment> roleList = departmentService.list(keyword, pageSize, pageNum);
     return CommonResult.success(CommonPage.restPage(roleList));
+  }
+
+  @ApiOperation("添加部门")
+  @RequestMapping(value = "/create", method = RequestMethod.POST)
+  @ResponseBody
+  public CommonResult create(@RequestBody UmsDepartment department) {
+    boolean success = departmentService.create(department);
+    if (success) {
+      return CommonResult.success(null);
+    }
+    return CommonResult.failed();
+  }
+
+  @ApiOperation("修改部门")
+  @RequestMapping(value = "/update/{id}", method = RequestMethod.POST)
+  @ResponseBody
+  public CommonResult update(@PathVariable Long id, @RequestBody UmsDepartment department) {
+    department.setId(id);
+    boolean success = departmentService.updateById(department);
+    if (success) {
+      return CommonResult.success(null);
+    }
+    return CommonResult.failed();
+  }
+
+  @ApiOperation("批量删除部门")
+  @RequestMapping(value = "/delete", method = RequestMethod.POST)
+  @ResponseBody
+  public CommonResult delete(@RequestParam("ids") List<Long> ids) {
+    boolean success = departmentService.delete(ids);
+    if (success) {
+      return CommonResult.success(null);
+    }
+    return CommonResult.failed();
   }
 }
 
