@@ -55,6 +55,5 @@ public class AmsReimbursement implements Serializable {
 
     @ApiModelProperty("单据数")
     private Integer billNum;
-
-
+    
 }

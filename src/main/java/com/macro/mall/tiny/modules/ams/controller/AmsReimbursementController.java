@@ -23,15 +23,5 @@ public class AmsReimbursementController {
 	@Autowired
 	private AmsReimbursementService reimbursementService;
 	
-	@ApiOperation("添加报销单")
-	@RequestMapping(value = "/create", method = RequestMethod.POST)
-	@ResponseBody
-	public CommonResult create(@RequestBody AmsReimbursement reimbursement) {
-		boolean success = reimbursementService.create(reimbursement);
-		if (success) {
-			return CommonResult.success(null);
-		}
-		return CommonResult.failed();
-	}
 }
 
