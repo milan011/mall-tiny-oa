@@ -66,6 +66,7 @@ CREATE TABLE `ams_process` (
   `name` varchar(255) DEFAULT NULL COMMENT '名称',
   `apply_user_id` bigint(20) DEFAULT NULL COMMENT '申请用户ID',
   `examine_user_id` bigint(20) DEFAULT NULL COMMENT '审核用户ID',
+  `priority` varchar(255) DEFAULT NULL COMMENT '优先级',
   `apply_type_id` bigint(20) DEFAULT NULL COMMENT '申请类型ID',
   `apply_type_name` varchar(255) DEFAULT NULL COMMENT '申请类型名称',
   `steps_concent` text DEFAULT NULL COMMENT '审核步骤详情 JSON对象格式',
@@ -106,6 +107,21 @@ CREATE TABLE `ams_reimbursement` (
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='报销单表';
 
+-- ----------------------------
+-- Table structure for ams_reimbursement
+-- ----------------------------
+DROP TABLE IF EXISTS `ams_reimbursement_details`;
+CREATE TABLE `ams_reimbursement_details` (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `reim_id` bigint(20) DEFAULT NULL COMMENT '关联报销表ID',
+  `happen_time` datetime DEFAULT NULL COMMENT '费用日期',
+  `reim_course` varchar(255) DEFAULT NULL COMMENT '费用科目',
+  `reim_explain` varchar(255) DEFAULT NULL COMMENT '费用说明',
+  `bill_list` text DEFAULT NULL COMMENT '票据',
+  `reim_money` decimal(10,2) DEFAULT NULL COMMENT '报销金额',
+  `uppercase` varchar(255) DEFAULT NULL COMMENT '金额大写',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='报销单-明细表';
 
 -- ----------------------------
 -- Table structure for ams_pay_apply

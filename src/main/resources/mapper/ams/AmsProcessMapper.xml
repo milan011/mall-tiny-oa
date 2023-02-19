@@ -9,6 +9,7 @@
         <result column="apply_user_id" property="applyUserId" />
         <result column="examine_user_id" property="examineUserId" />
         <result column="apply_type_id" property="applyTypeId" />
+        <result column="priority" property="priority" />
         <result column="apply_type_name" property="applyTypeName" />
         <result column="steps_concent" property="stepsConcent" />
         <result column="create_time" property="createTime" />

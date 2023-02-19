@@ -41,6 +41,9 @@ public class AmsProcess implements Serializable {
     @ApiModelProperty("申请类型ID")
     private Long applyTypeId;
 
+    @ApiModelProperty("优先级")
+    private String priority;
+
     @ApiModelProperty("申请类型名称")
     private String applyTypeName;
 

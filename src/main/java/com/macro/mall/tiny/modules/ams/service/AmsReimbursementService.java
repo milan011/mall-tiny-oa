@@ -12,5 +12,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-01-31
  */
 public interface AmsReimbursementService extends IService<AmsReimbursement> {
-
+	/**
+	 * 添加部门
+	 */
+	boolean create(AmsReimbursement reimbursement);
 }
