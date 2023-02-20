@@ -19,5 +19,5 @@ public interface AmsProcessService extends IService<AmsProcess> {
 	/*
 	* 创建报销单*/
 	@Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
-	boolean create(AmsProcessReimbursementParam processReimbursementParam);
+	boolean createReimbursement(AmsProcessReimbursementParam processReimbursementParam);
 }

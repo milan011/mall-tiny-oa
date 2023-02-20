@@ -26,7 +26,7 @@ public class AmsProcessController {
 	@RequestMapping(value = "/createForReimbursement", method = RequestMethod.POST)
 	@ResponseBody
 	public CommonResult create(@RequestBody AmsProcessReimbursementParam processReimbursementParam) {
-		boolean success = amsProcessService.create(processReimbursementParam);
+		boolean success = amsProcessService.createReimbursement(processReimbursementParam);
 		if (success) {
 			return CommonResult.success(null);
 		}
