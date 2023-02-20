@@ -9,6 +9,7 @@ import com.macro.mall.tiny.modules.ums.dto.UmsAdminParam;
 import com.macro.mall.tiny.modules.ums.dto.UpdateAdminPasswordParam;
 import com.macro.mall.tiny.modules.ums.model.UmsAdmin;
 import com.macro.mall.tiny.modules.ums.model.UmsRole;
+import com.macro.mall.tiny.modules.ums.service.UmsAdminCacheService;
 import com.macro.mall.tiny.modules.ums.service.UmsAdminService;
 import com.macro.mall.tiny.modules.ums.service.UmsRoleService;
 import io.swagger.annotations.Api;
@@ -45,6 +46,8 @@ public class UmsAdminController {
   @Autowired
   private UmsRoleService roleService;
 
+  @Autowired
+  UmsAdminCacheService adminCacheService;
   @ApiOperation(value = "用户注册")
   @RequestMapping(value = "/register", method = RequestMethod.POST)
   @ResponseBody
@@ -95,6 +98,7 @@ public class UmsAdminController {
     String username = principal.getName();
     UmsAdmin umsAdmin = adminService.getAdminByUsername(username);
     Map<String, Object> data = new HashMap<>();
+    data.put("userId", umsAdmin.getId());
     data.put("username", umsAdmin.getUsername());
     data.put("menus", roleService.getMenuList(umsAdmin.getId()));
     data.put("icon", umsAdmin.getIcon());

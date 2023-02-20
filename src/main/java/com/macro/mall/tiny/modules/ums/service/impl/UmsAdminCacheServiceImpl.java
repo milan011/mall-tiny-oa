@@ -12,6 +12,8 @@ import com.macro.mall.tiny.modules.ums.service.UmsAdminRoleRelationService;
 import com.macro.mall.tiny.modules.ums.service.UmsAdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -93,6 +95,14 @@ public class UmsAdminCacheServiceImpl implements UmsAdminCacheService {
     public UmsAdmin getAdmin(String username) {
         String key = REDIS_DATABASE + ":" + REDIS_KEY_ADMIN + ":" + username;
         return (UmsAdmin) redisService.get(key);
+    }
+    
+    @Override
+    public UmsAdmin getAdminBySecurity(){
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        UmsAdmin user = getAdmin(currentPrincipalName);
+        return  user;
     }
 
     @Override

@@ -11,6 +11,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import com.macro.mall.tiny.domain.AdminUserDetails;
 import org.springframework.stereotype.Service;
 
 import java.security.Principal;
@@ -27,12 +28,17 @@ import java.security.Principal;
 public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProcess> implements AmsProcessService {
 	@Autowired
 	UmsAdminCacheService adminCacheService;
+	/*@Autowired
+	AdminUserDetails adminUserDetails;*/
 	@Override
 	public boolean createReimbursement(AmsProcessReimbursementParam processReimbursementParam) {
 		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		/*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 		String currentPrincipalName = authentication.getName();
-		UmsAdmin currentAdmin = adminCacheService.getAdmin(currentPrincipalName);
+		UmsAdmin currentAdmin = adminCacheService.getAdmin(currentPrincipalName);*/
+		
+		UmsAdmin currentAdmin = adminCacheService.getAdminBySecurity();
+		
 		/*创建流程*/
 		AmsProcess process = new AmsProcess();
 		BeanUtils.copyProperties(processReimbursementParam, process);

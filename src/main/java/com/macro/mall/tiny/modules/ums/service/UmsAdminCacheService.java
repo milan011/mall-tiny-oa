@@ -41,7 +41,8 @@ public interface UmsAdminCacheService {
      * 获取缓存后台用户信息
      */
     UmsAdmin getAdmin(String username);
-
+    
+    UmsAdmin getAdminBySecurity();
     /**
      * 设置缓存后台用户信息
      */
