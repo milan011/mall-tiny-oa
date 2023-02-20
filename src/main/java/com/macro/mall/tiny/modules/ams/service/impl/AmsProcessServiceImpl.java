@@ -1,20 +1,20 @@
 package com.macro.mall.tiny.modules.ams.service.impl;
 
 import com.macro.mall.tiny.modules.ams.dto.AmsProcessReimbursementParam;
+import com.macro.mall.tiny.modules.ams.mapper.AmsReimbursementMapper;
 import com.macro.mall.tiny.modules.ams.model.AmsProcess;
 import com.macro.mall.tiny.modules.ams.mapper.AmsProcessMapper;
+import com.macro.mall.tiny.modules.ams.model.AmsReimbursement;
 import com.macro.mall.tiny.modules.ams.service.AmsProcessService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.macro.mall.tiny.modules.ums.model.UmsAdmin;
 import com.macro.mall.tiny.modules.ums.service.UmsAdminCacheService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
-import com.macro.mall.tiny.domain.AdminUserDetails;
+import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import java.security.Principal;
+import java.util.Date;
 
 /**
  * <p>
@@ -28,25 +28,31 @@ import java.security.Principal;
 public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProcess> implements AmsProcessService {
 	@Autowired
 	UmsAdminCacheService adminCacheService;
-	/*@Autowired
-	AdminUserDetails adminUserDetails;*/
+	@Autowired
+	AmsReimbursementMapper reimbursementMapper;
 	@Override
 	public boolean createReimbursement(AmsProcessReimbursementParam processReimbursementParam) {
-		
-		/*Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		String currentPrincipalName = authentication.getName();
-		UmsAdmin currentAdmin = adminCacheService.getAdmin(currentPrincipalName);*/
-		
 		UmsAdmin currentAdmin = adminCacheService.getAdminBySecurity();
 		
 		/*创建流程*/
 		AmsProcess process = new AmsProcess();
 		BeanUtils.copyProperties(processReimbursementParam, process);
 		process.setId(null);
-		//amsProcessMapper.insertSelective(process);
-		/*创建报销单*/
+		process.setApplyUserId(currentAdmin.getId());
+		process.setCreateTime(new Date());
+		baseMapper.insert(process);
+		Long addProcessId = process.getId();
 		
+		/*创建报销单*/
+		AmsReimbursement reimbursement = new AmsReimbursement();
+		BeanUtils.copyProperties(processReimbursementParam, reimbursement);
+		reimbursement.setId(null);
+		reimbursement.setProId(addProcessId);
+		reimbursementMapper.insert(reimbursement);
+		
+		Long addReimbursementId = reimbursement.getId();
 		/*关联报销单-明细*/
+		
 		return true;
 	}
 }
