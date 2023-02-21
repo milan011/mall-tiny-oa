@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.macro.mall.tiny.common.api.CommonPage;
 import com.macro.mall.tiny.common.api.CommonResult;
 import com.macro.mall.tiny.modules.ums.model.UmsDepartment;
+import com.macro.mall.tiny.modules.ums.model.UmsRole;
 import com.macro.mall.tiny.modules.ums.service.UmsDepartmentService;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,6 +84,14 @@ public class UmsDepartmentController {
       return CommonResult.success(null);
     }
     return CommonResult.failed();
+  }
+  
+  @ApiOperation("获取所有部门")
+  @RequestMapping(value = "/listAll", method = RequestMethod.GET)
+  @ResponseBody
+  public CommonResult<List<UmsDepartment>> listAll() {
+    List<UmsDepartment> departmentList = departmentService.list();
+    return CommonResult.success(departmentList);
   }
 }
 

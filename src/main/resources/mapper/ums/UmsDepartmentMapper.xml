@@ -2,15 +2,19 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.macro.mall.tiny.modules.ums.mapper.UmsDepartmentMapper">
 
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.macro.mall.tiny.modules.ums.model.UmsDepartment">
-        <id column="id" property="id" />
-        <result column="depname" property="depname" />
-        <result column="description" property="description" />
-        <result column="admin_count" property="adminCount" />
-        <result column="create_time" property="createTime" />
-        <result column="status" property="status" />
-        <result column="sort" property="sort" />
-    </resultMap>
-
+  <!-- 通用查询映射结果 -->
+  <resultMap id="BaseResultMap" type="com.macro.mall.tiny.modules.ums.model.UmsDepartment">
+    <id column="id" property="id" />
+    <result column="depname" property="depname" />
+    <result column="description" property="description" />
+    <result column="admin_count" property="adminCount" />
+    <result column="create_time" property="createTime" />
+    <result column="status" property="status" />
+    <result column="sort" property="sort" />
+  </resultMap>
+  <select id="getDepartmentList" resultType="com.macro.mall.tiny.modules.ums.model.UmsDepartment">
+    select d.*
+    from ums_user_department_relation ur left join ums_department d on ur.department_id = d.id
+    where ur.user_id = #{adminId}
+  </select>
 </mapper>

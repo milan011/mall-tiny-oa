@@ -5,6 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import com.macro.mall.tiny.modules.ums.dto.UmsAdminParam;
 import com.macro.mall.tiny.modules.ums.dto.UpdateAdminPasswordParam;
 import com.macro.mall.tiny.modules.ums.model.UmsAdmin;
+import com.macro.mall.tiny.modules.ums.model.UmsDepartment;
 import com.macro.mall.tiny.modules.ums.model.UmsResource;
 import com.macro.mall.tiny.modules.ums.model.UmsRole;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -61,12 +62,21 @@ public interface UmsAdminService extends IService<UmsAdmin> {
    */
   @Transactional
   int updateRole(Long adminId, List<Long> roleIds);
-
+  
+  /**
+   *
+   */
+  @Transactional
+  int updateDepartment(Long adminId, List<Long> departmentIds);
   /**
    * 获取用户对于角色
    */
   List<UmsRole> getRoleList(Long adminId);
-
+  
+  /**
+   * 获取用户部门
+   */
+  List<UmsDepartment> getDepartmentList(Long adminId);
   /**
    * 获取指定用户的可访问资源
    */

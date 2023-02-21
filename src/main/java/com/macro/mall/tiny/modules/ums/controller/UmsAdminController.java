@@ -8,6 +8,7 @@ import com.macro.mall.tiny.modules.ums.dto.UmsAdminLoginParam;
 import com.macro.mall.tiny.modules.ums.dto.UmsAdminParam;
 import com.macro.mall.tiny.modules.ums.dto.UpdateAdminPasswordParam;
 import com.macro.mall.tiny.modules.ums.model.UmsAdmin;
+import com.macro.mall.tiny.modules.ums.model.UmsDepartment;
 import com.macro.mall.tiny.modules.ums.model.UmsRole;
 import com.macro.mall.tiny.modules.ums.service.UmsAdminCacheService;
 import com.macro.mall.tiny.modules.ums.service.UmsAdminService;
@@ -199,6 +200,18 @@ public class UmsAdminController {
     }
     return CommonResult.failed();
   }
+  
+  @ApiOperation("给用户分配部门")
+  @RequestMapping(value = "/department/update", method = RequestMethod.POST)
+  @ResponseBody
+  public CommonResult updateDepartment(@RequestParam("adminId") Long adminId,
+                                 @RequestParam("departmentIds") List<Long> departmentIds) {
+    int count = adminService.updateDepartment(adminId, departmentIds);
+    if (count >= 0) {
+      return CommonResult.success(count);
+    }
+    return CommonResult.failed();
+  }
 
   @ApiOperation("获取指定用户的角色")
   @RequestMapping(value = "/role/{adminId}", method = RequestMethod.GET)
@@ -206,5 +219,13 @@ public class UmsAdminController {
   public CommonResult<List<UmsRole>> getRoleList(@PathVariable Long adminId) {
     List<UmsRole> roleList = adminService.getRoleList(adminId);
     return CommonResult.success(roleList);
+  }
+  
+  @ApiOperation("获取指定用户的部门")
+  @RequestMapping(value = "/department/{adminId}", method = RequestMethod.GET)
+  @ResponseBody
+  public CommonResult<List<UmsDepartment>> getDepartmentList(@PathVariable Long adminId) {
+    List<UmsDepartment> departmentList = adminService.getDepartmentList(adminId);
+    return CommonResult.success(departmentList);
   }
 }

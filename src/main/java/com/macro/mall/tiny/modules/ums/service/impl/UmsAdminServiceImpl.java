@@ -10,14 +10,12 @@ import com.macro.mall.tiny.common.exception.Asserts;
 import com.macro.mall.tiny.domain.AdminUserDetails;
 import com.macro.mall.tiny.modules.ums.dto.UmsAdminParam;
 import com.macro.mall.tiny.modules.ums.dto.UpdateAdminPasswordParam;
-import com.macro.mall.tiny.modules.ums.mapper.UmsAdminLoginLogMapper;
-import com.macro.mall.tiny.modules.ums.mapper.UmsAdminMapper;
-import com.macro.mall.tiny.modules.ums.mapper.UmsResourceMapper;
-import com.macro.mall.tiny.modules.ums.mapper.UmsRoleMapper;
+import com.macro.mall.tiny.modules.ums.mapper.*;
 import com.macro.mall.tiny.modules.ums.model.*;
 import com.macro.mall.tiny.modules.ums.service.UmsAdminCacheService;
 import com.macro.mall.tiny.modules.ums.service.UmsAdminRoleRelationService;
 import com.macro.mall.tiny.modules.ums.service.UmsAdminService;
+import com.macro.mall.tiny.modules.ums.service.UmsUserDepartmentRelationService;
 import com.macro.mall.tiny.security.util.JwtTokenUtil;
 import com.macro.mall.tiny.security.util.SpringUtil;
 import org.slf4j.Logger;
@@ -55,8 +53,14 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper,UmsAdmin> im
   private UmsAdminLoginLogMapper loginLogMapper;
   @Autowired
   private UmsAdminRoleRelationService adminRoleRelationService;
+  
+  @Autowired
+  private UmsUserDepartmentRelationService userDepartmentRelationService;
   @Autowired
   private UmsRoleMapper roleMapper;
+  
+  @Autowired
+  private UmsDepartmentMapper departmentMapper;
   @Autowired
   private UmsResourceMapper resourceMapper;
 
@@ -216,6 +220,33 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper,UmsAdmin> im
   @Override
   public List<UmsRole> getRoleList(Long adminId) {
     return roleMapper.getRoleList(adminId);
+  }
+  
+  @Override
+  public List<UmsDepartment> getDepartmentList(Long adminId) {
+    return departmentMapper.getDepartmentList(adminId);
+  }
+  
+  @Override
+  public int updateDepartment(Long adminId, List<Long> departmentIds) {
+    int count = departmentIds == null ? 0 : departmentIds.size();
+    //先删除原来的关系
+    QueryWrapper<UmsUserDepartmentRelation> wrapper = new QueryWrapper<>();
+    wrapper.lambda().eq(UmsUserDepartmentRelation::getUserId,adminId);
+    userDepartmentRelationService.remove(wrapper);
+    //建立新关系
+    if (!CollectionUtils.isEmpty(departmentIds)) {
+      List<UmsUserDepartmentRelation> list = new ArrayList<>();
+      for (Long departmentId : departmentIds) {
+        UmsUserDepartmentRelation departmentRelation = new UmsUserDepartmentRelation();
+        departmentRelation.setUserId(adminId);
+        departmentRelation.setDepartmentId(departmentId);
+        list.add(departmentRelation);
+      }
+      userDepartmentRelationService.saveBatch(list);
+    }
+    getCacheService().delResourceList(adminId);
+    return count;
   }
 
   @Override
