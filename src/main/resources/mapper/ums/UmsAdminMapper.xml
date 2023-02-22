@@ -8,6 +8,7 @@
         <result column="username" property="username"/>
         <result column="password" property="password"/>
         <result column="icon" property="icon"/>
+        <result column="telephone" property="telephone"/>
         <result column="email" property="email"/>
         <result column="nick_name" property="nickName"/>
         <result column="note" property="note"/>

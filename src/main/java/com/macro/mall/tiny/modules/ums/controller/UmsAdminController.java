@@ -104,9 +104,14 @@ public class UmsAdminController {
     data.put("menus", roleService.getMenuList(umsAdmin.getId()));
     data.put("icon", umsAdmin.getIcon());
     List<UmsRole> roleList = adminService.getRoleList(umsAdmin.getId());
+    List<UmsDepartment> departmentList = adminService.getDepartmentList(umsAdmin.getId());
     if(CollUtil.isNotEmpty(roleList)){
       List<String> roles = roleList.stream().map(UmsRole::getName).collect(Collectors.toList());
       data.put("roles",roles);
+    }
+    if(CollUtil.isNotEmpty(departmentList)){
+      List<Long> departments = departmentList.stream().map(UmsDepartment::getId).collect(Collectors.toList());
+      data.put("departments",departments);
     }
     return CommonResult.success(data);
   }

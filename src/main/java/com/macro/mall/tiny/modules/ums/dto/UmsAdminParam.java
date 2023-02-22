@@ -25,6 +25,9 @@ public class UmsAdminParam {
     @Email
     @ApiModelProperty(value = "邮箱")
     private String email;
+    @NotEmpty
+    @ApiModelProperty(value = "电话")
+    private String telephone;
     @ApiModelProperty(value = "用户昵称")
     private String nickName;
     @ApiModelProperty(value = "备注")

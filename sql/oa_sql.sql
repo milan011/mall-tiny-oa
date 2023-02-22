@@ -222,3 +222,14 @@ CREATE TABLE `ams_project` (
   `type_id` bigint(20) DEFAULT NULL COMMENT '报账类型',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='工程项目付款审批单表';
+
+
+-------------------------
+--为用户表添加电话
+-------------------------
+-- alter table [表名] add [字段名] 字段属性 default 缺省值 default 是可选参数
+alter table `ums_admin` add `telephone` varchar(32) default NULL COMMENT '联系电话';
+
+-- 删除用户表电话
+-- alter table `ums_admin` drop `real_name`;
+-- alter table `ums_admin` add `telephone` varchar(32) default NULL COMMENT '联系电话';
