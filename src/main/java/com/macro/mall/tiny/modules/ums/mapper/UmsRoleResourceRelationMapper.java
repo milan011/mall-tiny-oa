@@ -3,6 +3,7 @@ package com.macro.mall.tiny.modules.ums.mapper;
 import com.macro.mall.tiny.modules.ums.model.UmsRoleResourceRelation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
@@ -14,6 +15,7 @@ import java.util.List;
  * @author macro
  * @since 2020-08-21
  */
+@Repository
 public interface UmsRoleResourceRelationMapper extends BaseMapper<UmsRoleResourceRelation> {
 
 }

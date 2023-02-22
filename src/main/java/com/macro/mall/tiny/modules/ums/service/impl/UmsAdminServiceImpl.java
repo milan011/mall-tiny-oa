@@ -132,6 +132,7 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper,UmsAdmin> im
     loginLog.setAdminId(admin.getId());
     loginLog.setCreateTime(new Date());
     ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+    assert attributes != null;
     HttpServletRequest request = attributes.getRequest();
     loginLog.setIp(request.getRemoteAddr());
     loginLogMapper.insert(loginLog);
@@ -233,28 +234,39 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper,UmsAdmin> im
      * 2.根据审核人角色/部门确定审核人列表
      */
     List roleIds = (List) params.get("roleIds");
-    //List examineRoles = examineRolesConfrim(Collections.singletonList(params.get("roleIds")));
     List examineRoles = examineRolesConfrim(roleIds);
+    List departmentIds = (List) params.get("departmentIds");
+    
+    
     return userList;
   }
   
   private List examineRolesConfrim(List roleIds){
     ArrayList<Long> roles = new ArrayList<>();
-    //Long[] roleArr =(Long [])roleIds.toArray();
-    //Long[] roleArr = (Long[]) roleIds.toArray(new Long[0]);
     //普通职员的审核角色为部门经理
     if(roleIds.contains(14)){
       roles.add(12L);
     }
-    /*if(ArrayUtil.contains(roleArr, 11)){
-      roles.add(12);
-    }*/
     //部门经理的审核角色为会计
+    if(roleIds.contains(12)){
+      roles.add(13L);
+    }
     //会计的审核角色为财务部经理
+    if(roleIds.contains(13)){
+      roles.add(15L);
+    }
     //财务负责人审核角色为常务副总
+    if(roleIds.contains(15)){
+      roles.add(11L);
+    }
     //常务副总审核角色为总经理
+    if(roleIds.contains(11)){
+      roles.add(10L);
+    }
     //总经理审核角色为董事长
-    
+    if(roleIds.contains(10)){
+      roles.add(9L);
+    }
     return roles;
   }
   @Override

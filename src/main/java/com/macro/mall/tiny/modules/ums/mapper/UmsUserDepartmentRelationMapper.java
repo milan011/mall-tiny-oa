@@ -2,6 +2,7 @@ package com.macro.mall.tiny.modules.ums.mapper;
 
 import com.macro.mall.tiny.modules.ums.model.UmsUserDepartmentRelation;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.springframework.stereotype.Repository;
 
 /**
  * <p>
@@ -11,6 +12,7 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author macro
  * @since 2023-01-31
  */
+@Repository
 public interface UmsUserDepartmentRelationMapper extends BaseMapper<UmsUserDepartmentRelation> {
 
 }
