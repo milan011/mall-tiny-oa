@@ -34,9 +34,7 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * 后台管理员管理Service实现类
@@ -227,6 +225,38 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper,UmsAdmin> im
     return departmentMapper.getDepartmentList(adminId);
   }
   
+  @Override
+  public List getExamineList(Map<String, Object> params) {
+    ArrayList userList = new ArrayList<>();
+    /*
+     * 1.根据当前用户角色/部门确定其审核人角色
+     * 2.根据审核人角色/部门确定审核人列表
+     */
+    List roleIds = (List) params.get("roleIds");
+    //List examineRoles = examineRolesConfrim(Collections.singletonList(params.get("roleIds")));
+    List examineRoles = examineRolesConfrim(roleIds);
+    return userList;
+  }
+  
+  private List examineRolesConfrim(List roleIds){
+    ArrayList<Long> roles = new ArrayList<>();
+    //Long[] roleArr =(Long [])roleIds.toArray();
+    //Long[] roleArr = (Long[]) roleIds.toArray(new Long[0]);
+    //普通职员的审核角色为部门经理
+    if(roleIds.contains(14)){
+      roles.add(12L);
+    }
+    /*if(ArrayUtil.contains(roleArr, 11)){
+      roles.add(12);
+    }*/
+    //部门经理的审核角色为会计
+    //会计的审核角色为财务部经理
+    //财务负责人审核角色为常务副总
+    //常务副总审核角色为总经理
+    //总经理审核角色为董事长
+    
+    return roles;
+  }
   @Override
   public int updateDepartment(Long adminId, List<Long> departmentIds) {
     int count = departmentIds == null ? 0 : departmentIds.size();

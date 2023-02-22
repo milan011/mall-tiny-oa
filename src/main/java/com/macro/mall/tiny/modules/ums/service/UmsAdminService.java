@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * 后台管理员管理Service
@@ -77,6 +78,11 @@ public interface UmsAdminService extends IService<UmsAdmin> {
    * 获取用户部门
    */
   List<UmsDepartment> getDepartmentList(Long adminId);
+  
+  /**
+   * 获取审核列表
+   */
+  List getExamineList(Map<String, Object> params);
   /**
    * 获取指定用户的可访问资源
    */

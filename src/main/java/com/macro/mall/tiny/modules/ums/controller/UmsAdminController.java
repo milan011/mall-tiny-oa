@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -107,7 +108,9 @@ public class UmsAdminController {
     List<UmsDepartment> departmentList = adminService.getDepartmentList(umsAdmin.getId());
     if(CollUtil.isNotEmpty(roleList)){
       List<String> roles = roleList.stream().map(UmsRole::getName).collect(Collectors.toList());
+      List<Long> roleIds = roleList.stream().map(UmsRole::getId).collect(Collectors.toList());
       data.put("roles",roles);
+      data.put("roleIds",roleIds);
     }
     if(CollUtil.isNotEmpty(departmentList)){
       List<Long> departments = departmentList.stream().map(UmsDepartment::getId).collect(Collectors.toList());
@@ -232,5 +235,15 @@ public class UmsAdminController {
   public CommonResult<List<UmsDepartment>> getDepartmentList(@PathVariable Long adminId) {
     List<UmsDepartment> departmentList = adminService.getDepartmentList(adminId);
     return CommonResult.success(departmentList);
+  }
+  
+  @ApiOperation(value = "获取审核用户列表")
+  @RequestMapping(value = "/examineUserList", method = RequestMethod.POST)
+  @ResponseBody
+  public CommonResult getExamineUserList(@RequestBody Map<String, Object> params){
+    //ArrayList userList = new ArrayList<>();
+    List userList = adminService.getExamineList( params);
+    
+    return CommonResult.success(userList);
   }
 }

@@ -10,7 +10,6 @@
         <result column="icon" property="icon"/>
         <result column="telephone" property="telephone"/>
         <result column="email" property="email"/>
-        <result column="nick_name" property="nickName"/>
         <result column="note" property="note"/>
         <result column="create_time" property="createTime"/>
         <result column="login_time" property="loginTime"/>
