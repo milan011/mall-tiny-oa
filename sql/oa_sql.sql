@@ -233,3 +233,8 @@ alter table `ums_admin` add `telephone` varchar(32) default NULL COMMENT '联系
 -- 删除用户表电话
 -- alter table `ums_admin` drop `real_name`;
 -- alter table `ums_admin` add `telephone` varchar(32) default NULL COMMENT '联系电话';
+
+-------------------------
+--为流程表添加部门
+-------------------------
+alter table `ams_process` add `department_id` bigint(20) DEFAULT NULL COMMENT '部门ID';

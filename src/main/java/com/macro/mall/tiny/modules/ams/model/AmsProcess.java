@@ -37,7 +37,10 @@ public class AmsProcess implements Serializable {
 
     @ApiModelProperty("审核用户ID")
     private Long examineUserId;
-
+    
+    @ApiModelProperty("所属部门ID")
+    private Long departmentId;
+    
     @ApiModelProperty("申请类型ID")
     private Long applyTypeId;
 
