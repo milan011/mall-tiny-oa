@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.macro.mall.tiny.modules.ams.mapper.AmsReimbursementDetailsMapper">
-
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.macro.mall.tiny.modules.ams.model.AmsReimbursementDetails">
-        <id column="id" property="id" />
-        <result column="reim_id" property="reimId" />
-        <result column="happen_time" property="happenTime" />
-        <result column="reim_course" property="reimCourse" />
-        <result column="reim_explain" property="reimExplain" />
-        <result column="bill_list" property="billList" />
-        <result column="reim_money" property="reimMoney" />
-        <result column="uppercase" property="uppercase" />
-    </resultMap>
+	
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.macro.mall.tiny.modules.ams.model.AmsReimbursementDetails">
+		<id column="id" property="id" />
+		<result column="reim_id" property="reimId" />
+		<result column="happen_time" property="happenTime" />
+		<result column="reim_course" property="reimCourse" />
+		<result column="reim_explain" property="reimExplain" />
+		<result column="bill_list" property="billList" />
+		<result column="reim_money" property="reimMoney" />
+		<result column="uppercase" property="uppercase" />
+	</resultMap>
 
 </mapper>

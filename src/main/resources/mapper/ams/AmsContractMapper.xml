@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.macro.mall.tiny.modules.ams.mapper.AmsContractMapper">
-
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.macro.mall.tiny.modules.ams.model.AmsContract">
-        <id column="id" property="id" />
-        <result column="pro_id" property="proId" />
-        <result column="department" property="department" />
-        <result column="launch_basis" property="launchBasis" />
-        <result column="contract_code" property="contractCode" />
-        <result column="contract_name" property="contractName" />
-        <result column="first_part" property="firstPart" />
-        <result column="second_part" property="secondPart" />
-        <result column="contract_money" property="contractMoney" />
-        <result column="contract_content" property="contractContent" />
-    </resultMap>
+	
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.macro.mall.tiny.modules.ams.model.AmsContract">
+		<id column="id" property="id" />
+		<result column="pro_id" property="proId" />
+		<result column="department" property="department" />
+		<result column="launch_basis" property="launchBasis" />
+		<result column="contract_code" property="contractCode" />
+		<result column="contract_name" property="contractName" />
+		<result column="first_part" property="firstPart" />
+		<result column="second_part" property="secondPart" />
+		<result column="contract_money" property="contractMoney" />
+		<result column="contract_content" property="contractContent" />
+	</resultMap>
 
 </mapper>

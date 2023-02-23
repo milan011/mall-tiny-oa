@@ -66,6 +66,7 @@ CREATE TABLE `ams_process` (
   `name` varchar(255) DEFAULT NULL COMMENT '名称',
   `apply_user_id` bigint(20) DEFAULT NULL COMMENT '申请用户ID',
   `examine_user_id` bigint(20) DEFAULT NULL COMMENT '审核用户ID',
+  `department_id` bigint(20) DEFAULT NULL COMMENT '部门ID',
   `priority` varchar(255) DEFAULT NULL COMMENT '优先级',
   `apply_type_id` bigint(20) DEFAULT NULL COMMENT '申请类型ID',
   `apply_type_name` varchar(255) DEFAULT NULL COMMENT '申请类型名称',
@@ -237,4 +238,4 @@ alter table `ums_admin` add `telephone` varchar(32) default NULL COMMENT '联系
 -------------------------
 --为流程表添加部门
 -------------------------
-alter table `ams_process` add `department_id` bigint(20) DEFAULT NULL COMMENT '部门ID';
+-- alter table `ams_process` add `department_id` bigint(20) DEFAULT NULL COMMENT '部门ID';

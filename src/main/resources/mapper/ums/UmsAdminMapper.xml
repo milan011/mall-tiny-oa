@@ -1,49 +1,49 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.macro.mall.tiny.modules.ums.mapper.UmsAdminMapper">
-
-  <!-- 通用查询映射结果 -->
-  <resultMap id="BaseResultMap" type="com.macro.mall.tiny.modules.ums.model.UmsAdmin">
-    <id column="id" property="id"/>
-    <result column="username" property="username"/>
-    <result column="password" property="password"/>
-    <result column="icon" property="icon"/>
-    <result column="telephone" property="telephone"/>
-    <result column="email" property="email"/>
-    <result column="note" property="note"/>
-    <result column="create_time" property="createTime"/>
-    <result column="login_time" property="loginTime"/>
-    <result column="status" property="status"/>
-  </resultMap>
-  <resultMap id="examiResultMap" type="com.macro.mall.tiny.modules.ums.model.UmsAdmin">
-    <id column="id" property="id"/>
-    <id column="nick_name" property="nickName"/>
-  </resultMap>
-  <select id="getAdminIdList" resultType="java.lang.Long">
-    SELECT DISTINCT ar.admin_id
-    FROM ums_role_resource_relation rr
-    LEFT JOIN ums_admin_role_relation ar ON rr.role_id = ar.role_id
-    WHERE rr.resource_id = #{resourceId}
-  </select>
-  
-  <!--SELECT  a.id, a.nick_name
-  FROM ums_admin a
-  LEFT JOIN ums_admin_role_relation ar ON ar.admin_id = a.id
-  LEFT JOIN ums_user_department_relation ad ON ad.user_id = a.id
-  WHERE ar.role_id = 12 AND ad.department_id = 2-->
-  <select id="getAdminByRoleAndDepartement" resultMap="examiResultMap">
-    SELECT  a.id, a.nick_name
-    FROM ums_admin a
-    LEFT JOIN ums_admin_role_relation ar ON ar.admin_id = a.id
+	
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.macro.mall.tiny.modules.ums.model.UmsAdmin">
+		<id column="id" property="id"/>
+		<result column="username" property="username"/>
+		<result column="password" property="password"/>
+		<result column="icon" property="icon"/>
+		<result column="telephone" property="telephone"/>
+		<result column="email" property="email"/>
+		<result column="note" property="note"/>
+		<result column="create_time" property="createTime"/>
+		<result column="login_time" property="loginTime"/>
+		<result column="status" property="status"/>
+	</resultMap>
+	<resultMap id="examiResultMap" type="com.macro.mall.tiny.modules.ums.model.UmsAdmin">
+		<id column="id" property="id"/>
+		<id column="nick_name" property="nickName"/>
+	</resultMap>
+	<select id="getAdminIdList" resultType="java.lang.Long">
+		SELECT DISTINCT ar.admin_id
+		FROM ums_role_resource_relation rr
+					 LEFT JOIN ums_admin_role_relation ar ON rr.role_id = ar.role_id
+		WHERE rr.resource_id = #{resourceId}
+	</select>
+	
+	<!--SELECT  a.id, a.nick_name
+	FROM ums_admin a
+	LEFT JOIN ums_admin_role_relation ar ON ar.admin_id = a.id
+	LEFT JOIN ums_user_department_relation ad ON ad.user_id = a.id
+	WHERE ar.role_id = 12 AND ad.department_id = 2-->
+	<select id="getAdminByRoleAndDepartement" resultMap="examiResultMap">
+		SELECT  a.id, a.nick_name
+		FROM ums_admin a
+		LEFT JOIN ums_admin_role_relation ar ON ar.admin_id = a.id
 		LEFT JOIN ums_user_department_relation ad ON ad.user_id = a.id
-    WHERE ar.role_id IN
-        <foreach collection="roleIds" index="index" item="item" open="(" separator="," close=")">
-            #{item}
-        </foreach>
-        AND ad.department_id IN
-        <foreach collection="departmentIds" index="index" item="item" open="(" separator="," close=")">
-             #{item}
-        </foreach>
-  </select>
+		WHERE ar.role_id IN
+		<foreach collection="roleIds" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+		AND ad.department_id IN
+		<foreach collection="departmentIds" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
 
 </mapper>

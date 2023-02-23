@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.macro.mall.tiny.modules.ams.mapper.AmsProcessExamineUserMapper">
-
-    <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.macro.mall.tiny.modules.ams.model.AmsProcessExamineUser">
-        <id column="id" property="id" />
-        <result column="examine_user_id" property="examineUserId" />
-        <result column="process_id" property="processId" />
-    </resultMap>
+	
+	<!-- 通用查询映射结果 -->
+	<resultMap id="BaseResultMap" type="com.macro.mall.tiny.modules.ams.model.AmsProcessExamineUser">
+		<id column="id" property="id" />
+		<result column="examine_user_id" property="examineUserId" />
+		<result column="process_id" property="processId" />
+	</resultMap>
 
 </mapper>
