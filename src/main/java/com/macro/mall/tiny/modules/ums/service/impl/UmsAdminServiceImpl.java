@@ -1,6 +1,7 @@
 package com.macro.mall.tiny.modules.ums.service.impl;
 
 import cn.hutool.core.collection.CollUtil;
+import cn.hutool.core.convert.Convert;
 import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -228,15 +229,17 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper,UmsAdmin> im
   
   @Override
   public List getExamineList(Map<String, Object> params) {
-    ArrayList userList = new ArrayList<>();
+    List userList;
     /*
      * 1.根据当前用户角色/部门确定其审核人角色
      * 2.根据审核人角色/部门确定审核人列表
      */
     List roleIds = (List) params.get("roleIds");
     List examineRoles = examineRolesConfrim(roleIds);
-    List departmentIds = (List) params.get("departmentIds");
+    List departmentIds = (List) params.get("departments");
     
+    //String roles = Convert.toStr(examineRoles);
+    userList = baseMapper.getAdminByRoleAndDepartement(examineRoles, departmentIds);
     
     return userList;
   }

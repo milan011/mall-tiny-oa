@@ -15,7 +15,10 @@
     <result column="login_time" property="loginTime"/>
     <result column="status" property="status"/>
   </resultMap>
-
+  <resultMap id="examiResultMap" type="com.macro.mall.tiny.modules.ums.model.UmsAdmin">
+    <id column="id" property="id"/>
+    <id column="nick_name" property="nickName"/>
+  </resultMap>
   <select id="getAdminIdList" resultType="java.lang.Long">
     SELECT DISTINCT ar.admin_id
     FROM ums_role_resource_relation rr
@@ -28,16 +31,19 @@
   LEFT JOIN ums_admin_role_relation ar ON ar.admin_id = a.id
   LEFT JOIN ums_user_department_relation ad ON ad.user_id = a.id
   WHERE ar.role_id = 12 AND ad.department_id = 2-->
-  <!--<select id="getAdminByRoleAndDepartement" resultType="List">
-    SELECT
-        a.id id,
-        a.nick_name nickName,
-    FROM
-        ums_admin_role_relation arr
-        LEFT JOIN ums_role r ON arr.role_id = r.id
-        LEFT JOIN ums_admin a ON arr.admin_id = a.id
-    WHERE
-        arr.role_id = 1
-  </select>-->
+  <select id="getAdminByRoleAndDepartement" resultMap="examiResultMap">
+    SELECT  a.id, a.nick_name
+    FROM ums_admin a
+    LEFT JOIN ums_admin_role_relation ar ON ar.admin_id = a.id
+		LEFT JOIN ums_user_department_relation ad ON ad.user_id = a.id
+    WHERE ar.role_id IN
+        <foreach collection="roleIds" index="index" item="item" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        AND ad.department_id IN
+        <foreach collection="departmentIds" index="index" item="item" open="(" separator="," close=")">
+             #{item}
+        </foreach>
+  </select>
 
 </mapper>
