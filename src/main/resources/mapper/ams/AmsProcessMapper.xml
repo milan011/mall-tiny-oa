@@ -18,7 +18,7 @@
 		<result column="remark" property="remark" />
 		<result column="status" property="status" />
 	</resultMap>
-	<select id="getHandleProcess" resultType="com.macro.mall.tiny.modules.ams.model.AmsProcess">
+	<select id="getHandleProcess" resultType="map">
 		<!--select b.place_name,a.gps_no,d.rfid,d.pigeon_no,a.*,a.gps_status from feige_gps_record a
 		left join feige_place_pigeon d on a.place_pigeon_id = d.id
 		left join feige_place b on d.place_id = b.id
@@ -27,6 +27,9 @@
 				b.place_name = #{placeName}
 			</if>
 		</where>-->
-		select * from ams_process
+		select pr.*, ae.nick_name as examineUser, aa.nick_name as applyUser, d.depname from ams_process pr
+		left join ums_admin ae on pr.examine_user_id = ae.id
+		left join ums_admin aa on pr.apply_user_id = aa.id
+		left join ums_department d on pr.department_id = d.id
 	</select>
 </mapper>
