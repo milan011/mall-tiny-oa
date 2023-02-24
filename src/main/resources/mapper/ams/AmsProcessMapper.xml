@@ -18,5 +18,15 @@
 		<result column="remark" property="remark" />
 		<result column="status" property="status" />
 	</resultMap>
-
+	<select id="getHandleProcess" resultType="com.macro.mall.tiny.modules.ams.model.AmsProcess">
+		<!--select b.place_name,a.gps_no,d.rfid,d.pigeon_no,a.*,a.gps_status from feige_gps_record a
+		left join feige_place_pigeon d on a.place_pigeon_id = d.id
+		left join feige_place b on d.place_id = b.id
+		<where>
+			<if test="placeName != null and placeName != ''">
+				b.place_name = #{placeName}
+			</if>
+		</where>-->
+		select * from ams_process
+	</select>
 </mapper>

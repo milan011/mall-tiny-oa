@@ -1,7 +1,11 @@
 package com.macro.mall.tiny.modules.ams.service.impl;
 
+import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.Wrapper;
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.macro.mall.tiny.modules.ams.dto.*;
 import com.macro.mall.tiny.modules.ams.mapper.*;
 import com.macro.mall.tiny.modules.ams.model.*;
@@ -11,6 +15,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.macro.mall.tiny.modules.ams.service.AmsReimbursementDetailsService;
 import com.macro.mall.tiny.modules.ums.model.UmsAdmin;
 import com.macro.mall.tiny.modules.ums.model.UmsAdminRoleRelation;
+import com.macro.mall.tiny.modules.ums.model.UmsResource;
 import com.macro.mall.tiny.modules.ums.service.UmsAdminCacheService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,6 +38,22 @@ import java.util.Map;
  */
 @Service
 public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProcess> implements AmsProcessService {
+	
+	@Override
+	public IPage<AmsProcess> handleList(Page<AmsProcess> page, Long applyTypeId, String nameKeyword) {
+		/*Page<AmsProcess> page = new Page<>(pageNum,pageSize);
+		QueryWrapper<AmsProcess> wrapper = new QueryWrapper<>();
+		LambdaQueryWrapper<AmsProcess> lambda = wrapper.lambda();
+		lambda.eq(AmsProcess::getStatus, 1);
+		if(applyTypeId!=null){
+			lambda.eq(AmsProcess::getApplyTypeId,applyTypeId);
+		}
+		if(StrUtil.isNotEmpty(nameKeyword)){
+			lambda.like(AmsProcess::getName,nameKeyword);
+		}
+		return page(page,wrapper);*/
+		return baseMapper.getHandleProcess(page, applyTypeId, nameKeyword);
+	}
 	@Autowired
 	UmsAdminCacheService adminCacheService;
 	

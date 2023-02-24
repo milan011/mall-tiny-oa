@@ -1,8 +1,11 @@
 package com.macro.mall.tiny.modules.ams.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.macro.mall.tiny.modules.ams.dto.*;
 import com.macro.mall.tiny.modules.ams.model.AmsProcess;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.macro.mall.tiny.modules.ums.model.UmsResource;
 import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -16,6 +19,9 @@ import org.springframework.transaction.annotation.Transactional;
  * @since 2023-01-31
  */
 public interface AmsProcessService extends IService<AmsProcess> {
+	
+	
+	IPage<AmsProcess> handleList(Page<AmsProcess> page, Long applyTypeId, String nameKeyword);
 	/*
 	* 创建报销单*/
 	@Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
