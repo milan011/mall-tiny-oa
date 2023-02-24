@@ -31,5 +31,6 @@
 		left join ums_admin ae on pr.examine_user_id = ae.id
 		left join ums_admin aa on pr.apply_user_id = aa.id
 		left join ums_department d on pr.department_id = d.id
+		order by pr.priority desc, pr.create_time desc
 	</select>
 </mapper>

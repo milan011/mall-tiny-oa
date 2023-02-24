@@ -40,7 +40,7 @@ import java.util.Map;
 public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProcess> implements AmsProcessService {
 	
 	@Override
-	public IPage<AmsProcess> handleList(Page<AmsProcess> page, Long applyTypeId, String nameKeyword) {
+	public IPage<AmsProcess> handleList(Long applyTypeId, String nameKeyword, Integer pageNum, Integer pageSize) {
 		/*Page<AmsProcess> page = new Page<>(pageNum,pageSize);
 		QueryWrapper<AmsProcess> wrapper = new QueryWrapper<>();
 		LambdaQueryWrapper<AmsProcess> lambda = wrapper.lambda();
@@ -52,7 +52,8 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 			lambda.like(AmsProcess::getName,nameKeyword);
 		}
 		return page(page,wrapper);*/
-		return baseMapper.getHandleProcess(page, applyTypeId, nameKeyword);
+		Page<AmsProcess> page = new Page<>(pageNum, pageSize);
+		return baseMapper.getHandleProcess(page,applyTypeId, nameKeyword);
 	}
 	@Autowired
 	UmsAdminCacheService adminCacheService;

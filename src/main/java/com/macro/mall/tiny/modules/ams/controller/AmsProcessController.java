@@ -36,7 +36,7 @@ public class AmsProcessController {
 																												 @RequestParam(required = false) String nameKeyword,
 																												 @RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
 																												 @RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
-		IPage<AmsProcess> processList = amsProcessService.handleList(new Page<>(pageNum, pageSize),applyTypeId,nameKeyword);
+		IPage<AmsProcess> processList = amsProcessService.handleList(applyTypeId,nameKeyword,pageNum, pageSize);
 		return CommonResult.success(processList);
 	}
 	

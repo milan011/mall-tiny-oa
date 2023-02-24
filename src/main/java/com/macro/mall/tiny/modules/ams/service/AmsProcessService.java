@@ -21,7 +21,7 @@ import org.springframework.transaction.annotation.Transactional;
 public interface AmsProcessService extends IService<AmsProcess> {
 	
 	
-	IPage<AmsProcess> handleList(Page<AmsProcess> page, Long applyTypeId, String nameKeyword);
+	IPage<AmsProcess> handleList(Long applyTypeId, String nameKeyword,Integer pageNum, Integer pageSize);
 	/*
 	* 创建报销单*/
 	@Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)
