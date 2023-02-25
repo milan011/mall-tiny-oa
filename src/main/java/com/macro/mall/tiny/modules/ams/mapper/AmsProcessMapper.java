@@ -14,5 +14,5 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @since 2023-01-31
  */
 public interface AmsProcessMapper extends BaseMapper<AmsProcess> {
-	IPage<AmsProcess> getHandleProcess(Page<AmsProcess> page, Long applyTypeId, String nameKeyword);
+	IPage<AmsProcess> getHandleProcess(Page<AmsProcess> page, Long currentAdminId, Long applyTypeId, String nameKeyword);
 }

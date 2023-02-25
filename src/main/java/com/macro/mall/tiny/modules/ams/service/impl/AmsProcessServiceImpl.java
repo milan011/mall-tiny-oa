@@ -39,22 +39,6 @@ import java.util.Map;
 @Service
 public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProcess> implements AmsProcessService {
 	
-	@Override
-	public IPage<AmsProcess> handleList(Long applyTypeId, String nameKeyword, Integer pageNum, Integer pageSize) {
-		/*Page<AmsProcess> page = new Page<>(pageNum,pageSize);
-		QueryWrapper<AmsProcess> wrapper = new QueryWrapper<>();
-		LambdaQueryWrapper<AmsProcess> lambda = wrapper.lambda();
-		lambda.eq(AmsProcess::getStatus, 1);
-		if(applyTypeId!=null){
-			lambda.eq(AmsProcess::getApplyTypeId,applyTypeId);
-		}
-		if(StrUtil.isNotEmpty(nameKeyword)){
-			lambda.like(AmsProcess::getName,nameKeyword);
-		}
-		return page(page,wrapper);*/
-		Page<AmsProcess> page = new Page<>(pageNum, pageSize);
-		return baseMapper.getHandleProcess(page,applyTypeId, nameKeyword);
-	}
 	@Autowired
 	UmsAdminCacheService adminCacheService;
 	
@@ -77,6 +61,25 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 	
 	@Autowired
 	AmsReimbursementDetailsService reimbursementDetailsService;
+	
+	@Override
+	public IPage<AmsProcess> handleList(Long applyTypeId, String nameKeyword, Integer pageNum, Integer pageSize) {
+		/*Page<AmsProcess> page = new Page<>(pageNum,pageSize);
+		QueryWrapper<AmsProcess> wrapper = new QueryWrapper<>();
+		LambdaQueryWrapper<AmsProcess> lambda = wrapper.lambda();
+		lambda.eq(AmsProcess::getStatus, 1);
+		if(applyTypeId!=null){
+			lambda.eq(AmsProcess::getApplyTypeId,applyTypeId);
+		}
+		if(StrUtil.isNotEmpty(nameKeyword)){
+			lambda.like(AmsProcess::getName,nameKeyword);
+		}
+		return page(page,wrapper);*/
+		UmsAdmin currentAdmin = adminCacheService.getAdminBySecurity();
+		Long currentAdminId = currentAdmin.getId();
+		Page<AmsProcess> page = new Page<>(pageNum, pageSize);
+		return baseMapper.getHandleProcess(page, currentAdminId,applyTypeId, nameKeyword);
+	}
 	@Override
 	public boolean createReimbursement(AmsProcessReimbursementParam processReimbursementParam) {
 		//UmsAdmin currentAdmin = adminCacheService.getAdminBySecurity();
