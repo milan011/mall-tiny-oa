@@ -45,6 +45,8 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 	@Autowired
 	AmsAdvancepayService advancepayService;
 	@Autowired
+	AmsProcessExamineUserService processExamineUserService;
+	@Autowired
 	AmsReimbursementMapper reimbursementMapper;
 	
 	@Autowired
@@ -78,28 +80,36 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 		return baseMapper.getHandleProcess(page, currentAdminId,applyTypeId, nameKeyword);
 	}
 	public Boolean handleProcess(HashMap<String, Object> map){
+		UmsAdmin currentAdmin = adminCacheService.getAdminBySecurity();
+		Long currentAdminId = currentAdmin.getId();
 		/*修改审核内容相关*/
 		Integer processId = (Integer) map.get("id");
 		AmsProcess process = baseMapper.selectById(processId);
-		if(StringUtil.isNullOrEmpty(process.getStepsConcent())){ //第一步
-		
-		}
 		HashMap<String, Object> concentMap = new HashMap<>();
-		List<HashMap<String, Object>> concentListMap = new ArrayList<>();
+		List<HashMap> concentListMap = new ArrayList<>();
+		
 		concentMap.put("description", map.get("description"));
 		concentMap.put("examineHandle", map.get("examineHandle"));
 		concentMap.put("examineUser", map.get("examineUser"));
 		concentMap.put("examineUserRole", map.get("examineUserRole"));
 		concentMap.put("examineTime", new Date());
 		
+		if(!StringUtil.isNullOrEmpty(process.getStepsConcent())){ //非初步审核,添加审核步骤
+			concentListMap = JSONUtil.toList(process.getStepsConcent(), HashMap.class);
+		}
 		concentListMap.add(concentMap);
-		
-		String json = JSONUtil.toJsonStr(concentListMap);
-		List<HashMap> list = JSONUtil.toList(json, HashMap.class);
+		String concentListJson = JSONUtil.toJsonStr(concentListMap);
+		process.setStepsConcent(concentListJson);
+		//List<HashMap> list = JSONUtil.toList(json, HashMap.class);
 		//JSONObject jsonObject = JSONUtil.parseObj(process.getStepsConcent());
 		/*修改审核状态*/
+		process.setStatus((Integer) map.get("status"));
 		/*关联审核-流程记录关系表*/
-		return true;
+		AmsProcessExamineUser processExamineUser = new AmsProcessExamineUser();
+		processExamineUser.setProcessId(Long.valueOf(processId));
+		processExamineUser.setExamineUserId(currentAdminId);
+		processExamineUserService.save(processExamineUser);
+		return updateById(process);
 	}
 	@Override
 	public HashMap<String, Object> getProcessDetail(Long id){
