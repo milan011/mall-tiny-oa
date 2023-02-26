@@ -1,5 +1,6 @@
 package com.macro.mall.tiny.modules.ams.service.impl;
 
+import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.macro.mall.tiny.modules.ams.dto.*;
@@ -9,6 +10,7 @@ import com.macro.mall.tiny.modules.ams.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.macro.mall.tiny.modules.ums.model.UmsAdmin;
 import com.macro.mall.tiny.modules.ums.service.UmsAdminCacheService;
+import io.netty.util.internal.StringUtil;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -75,7 +77,30 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 		Page<AmsProcess> page = new Page<>(pageNum, pageSize);
 		return baseMapper.getHandleProcess(page, currentAdminId,applyTypeId, nameKeyword);
 	}
-	
+	public Boolean handleProcess(HashMap<String, Object> map){
+		/*修改审核内容相关*/
+		Integer processId = (Integer) map.get("id");
+		AmsProcess process = baseMapper.selectById(processId);
+		if(StringUtil.isNullOrEmpty(process.getStepsConcent())){ //第一步
+		
+		}
+		HashMap<String, Object> concentMap = new HashMap<>();
+		List<HashMap<String, Object>> concentListMap = new ArrayList<>();
+		concentMap.put("description", map.get("description"));
+		concentMap.put("examineHandle", map.get("examineHandle"));
+		concentMap.put("examineUser", map.get("examineUser"));
+		concentMap.put("examineUserRole", map.get("examineUserRole"));
+		concentMap.put("examineTime", new Date());
+		
+		concentListMap.add(concentMap);
+		
+		String json = JSONUtil.toJsonStr(concentListMap);
+		List<HashMap> list = JSONUtil.toList(json, HashMap.class);
+		//JSONObject jsonObject = JSONUtil.parseObj(process.getStepsConcent());
+		/*修改审核状态*/
+		/*关联审核-流程记录关系表*/
+		return true;
+	}
 	@Override
 	public HashMap<String, Object> getProcessDetail(Long id){
 		HashMap<String, Object> data = new HashMap<>();

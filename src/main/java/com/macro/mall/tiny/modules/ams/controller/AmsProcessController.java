@@ -8,6 +8,7 @@ import com.macro.mall.tiny.common.api.CommonResult;
 import com.macro.mall.tiny.modules.ams.dto.*;
 import com.macro.mall.tiny.modules.ams.model.AmsProcess;
 import com.macro.mall.tiny.modules.ams.service.AmsProcessService;
+import com.macro.mall.tiny.modules.ums.model.UmsAdmin;
 import com.macro.mall.tiny.modules.ums.model.UmsResource;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -65,6 +66,19 @@ public class AmsProcessController {
 		
 		return CommonResult.success(data);
 	}
+	
+	@ApiOperation("流程审核")
+	@RequestMapping(value = "/processExamine", method = RequestMethod.POST)
+	@ResponseBody
+	public CommonResult processExamine(@RequestBody HashMap<String,Object> map) {
+		boolean success = amsProcessService.handleProcess(map);
+		
+		if (success) {
+			return CommonResult.success(null);
+		}
+		return CommonResult.failed();
+	}
+	
 	@ApiOperation("添加报销单")
 	@RequestMapping(value = "/createForReimbursement", method = RequestMethod.POST)
 	@ResponseBody

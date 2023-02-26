@@ -102,6 +102,7 @@ public class UmsAdminController {
     Map<String, Object> data = new HashMap<>();
     data.put("userId", umsAdmin.getId());
     data.put("username", umsAdmin.getUsername());
+    data.put("nickname", umsAdmin.getNickName());
     data.put("menus", roleService.getMenuList(umsAdmin.getId()));
     data.put("icon", umsAdmin.getIcon());
     List<UmsRole> roleList = adminService.getRoleList(umsAdmin.getId());
