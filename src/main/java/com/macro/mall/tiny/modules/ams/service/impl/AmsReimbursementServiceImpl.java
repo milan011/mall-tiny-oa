@@ -1,12 +1,12 @@
 package com.macro.mall.tiny.modules.ams.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.macro.mall.tiny.modules.ams.model.AmsReimbursement;
 import com.macro.mall.tiny.modules.ams.mapper.AmsReimbursementMapper;
 import com.macro.mall.tiny.modules.ams.service.AmsReimbursementService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.stereotype.Service;
-
-import java.util.Date;
 
 /**
  * <p>
@@ -25,5 +25,14 @@ public class AmsReimbursementServiceImpl extends ServiceImpl<AmsReimbursementMap
 		reimbursement.setSort(0);
 		return save(reimbursement);*/
 		return true;
+	}
+	
+	@Override
+	public AmsReimbursement getRemibursementInfo(Long id){
+		QueryWrapper<AmsReimbursement> wrapper = new QueryWrapper<>();
+		LambdaQueryWrapper<AmsReimbursement> lambda = wrapper.lambda();
+		lambda.eq(AmsReimbursement::getProId,id);
+		AmsReimbursement reimbursement = getOne(wrapper);
+		return reimbursement;
 	}
 }

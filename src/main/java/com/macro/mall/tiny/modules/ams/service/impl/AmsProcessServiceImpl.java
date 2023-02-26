@@ -1,9 +1,5 @@
 package com.macro.mall.tiny.modules.ams.service.impl;
 
-import cn.hutool.core.util.StrUtil;
-import com.baomidou.mybatisplus.core.conditions.Wrapper;
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.macro.mall.tiny.modules.ams.dto.*;
@@ -13,20 +9,14 @@ import com.macro.mall.tiny.modules.ams.service.AmsBuyplanService;
 import com.macro.mall.tiny.modules.ams.service.AmsProcessService;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.macro.mall.tiny.modules.ams.service.AmsReimbursementDetailsService;
+import com.macro.mall.tiny.modules.ams.service.AmsReimbursementService;
 import com.macro.mall.tiny.modules.ums.model.UmsAdmin;
-import com.macro.mall.tiny.modules.ums.model.UmsAdminRoleRelation;
-import com.macro.mall.tiny.modules.ums.model.UmsResource;
 import com.macro.mall.tiny.modules.ums.service.UmsAdminCacheService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
 import org.springframework.stereotype.Service;
 
-import java.io.Serializable;
-import java.util.Collection;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * <p>
@@ -41,7 +31,10 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 	
 	@Autowired
 	UmsAdminCacheService adminCacheService;
-	
+	@Autowired
+	AmsReimbursementService reimbursementService;
+	@Autowired
+	AmsReimbursementDetailsService reimbursementDetailsService;
 	@Autowired
 	AmsBuyplanService amsBuyplanService;
 	@Autowired
@@ -58,9 +51,6 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 	
 	@Autowired
 	AmsProjectMapper projectMapper;
-	
-	@Autowired
-	AmsReimbursementDetailsService reimbursementDetailsService;
 	
 	@Override
 	public IPage<AmsProcess> handleList(Long applyTypeId, String nameKeyword, Integer pageNum, Integer pageSize) {
@@ -79,6 +69,48 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 		Long currentAdminId = currentAdmin.getId();
 		Page<AmsProcess> page = new Page<>(pageNum, pageSize);
 		return baseMapper.getHandleProcess(page, currentAdminId,applyTypeId, nameKeyword);
+	}
+	
+	@Override
+	public HashMap<String, Object> getProcessDetail(Long id){
+		HashMap<String, Object> data = new HashMap<>();
+		/*审批基本信息*/
+		HashMap<String, Object> process = baseMapper.getProcessInfoById(id);
+		//String[] arr = {"name"};
+		//Map<Object, Object> baseInfo = MapUtil.getAny(process, arr);
+		/*各审批单相关信息*/
+		//HashMap<String, Object> concreteInfo =  getConcreteByType(id, (Long) process.get("apply_type_id"));
+		getConcreteByType(data, id, (Long) process.get("apply_type_id"));
+		data.put("baseInfo", process);
+		//data.put("concreteInfo", concreteInfo);
+	
+		return data;
+	}
+	
+	private Boolean getConcreteByType(HashMap<String, Object> data, Long id, Long apply_type_id){
+		//HashMap<String, Object> dataConcrete = new HashMap<>();
+		if (apply_type_id.equals(1L)){ //报销单详情
+			AmsReimbursement remiInfo = reimbursementService.getRemibursementInfo(id);
+			List<AmsReimbursementDetails> reimbursementDetails = reimbursementDetailsService.getBillList(remiInfo.getId());
+			data.put("concreteInfo", remiInfo);
+			data.put("billList", reimbursementDetails);
+		}
+		if (apply_type_id.equals(2L)){ //付款申请单详情
+		
+		}
+		if (apply_type_id.equals(3L)){ //预付款项报账单详情
+		
+		}
+		if (apply_type_id.equals(4L)){ //采购计划审批单详情
+		
+		}
+		if (apply_type_id.equals(5L)){ //合同会签详情
+		
+		}
+		if (apply_type_id.equals(6L)){ //工程项目付款审批单详情
+		
+		}
+		return true;
 	}
 	@Override
 	public boolean createReimbursement(AmsProcessReimbursementParam processReimbursementParam) {

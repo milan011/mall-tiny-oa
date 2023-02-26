@@ -10,6 +10,8 @@ import org.springframework.transaction.annotation.Isolation;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.HashMap;
+
 /**
  * <p>
  * 审批流程表 服务类
@@ -22,6 +24,8 @@ public interface AmsProcessService extends IService<AmsProcess> {
 	
 	
 	IPage<AmsProcess> handleList(Long applyTypeId, String nameKeyword,Integer pageNum, Integer pageSize);
+	
+	HashMap<String, Object> getProcessDetail(Long id);
 	/*
 	* 创建报销单*/
 	@Transactional(isolation = Isolation.DEFAULT,propagation = Propagation.REQUIRED)

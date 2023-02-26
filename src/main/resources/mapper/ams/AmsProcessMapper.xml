@@ -43,4 +43,12 @@
 		</where>
 		order by pr.priority desc, pr.create_time desc
 	</select>
+	<select id="getProcessInfoById" resultType="map">
+		select pr.*, ae.nick_name as examineUser, aa.nick_name as applyUser, d.depname from ams_process pr
+		left join ums_admin ae on pr.examine_user_id = ae.id
+		left join ums_admin aa on pr.apply_user_id = aa.id
+		left join ums_department d on pr.department_id = d.id
+		where pr.id=#{id}
+	</select>
+	
 </mapper>

@@ -13,7 +13,10 @@ import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -52,6 +55,16 @@ public class AmsProcessController {
 		return new RestResponceBody<GpsRecordModel>(gpsEntityIPage) ;
 	}*/
 	
+	
+	@ApiOperation("审核详情")
+	@RequestMapping(value = "/processDetail", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult processDetail(@RequestParam(required = false) Long id){
+		Map<String, Object> data;
+		data = amsProcessService.getProcessDetail(id);
+		
+		return CommonResult.success(data);
+	}
 	@ApiOperation("添加报销单")
 	@RequestMapping(value = "/createForReimbursement", method = RequestMethod.POST)
 	@ResponseBody

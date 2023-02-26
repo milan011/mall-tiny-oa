@@ -16,4 +16,6 @@ public interface AmsReimbursementService extends IService<AmsReimbursement> {
 	 * 添加部门
 	 */
 	boolean create(AmsReimbursement reimbursement);
-}
+	
+	AmsReimbursement getRemibursementInfo(Long id);
+ }
