@@ -5,11 +5,8 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.macro.mall.tiny.modules.ams.dto.*;
 import com.macro.mall.tiny.modules.ams.mapper.*;
 import com.macro.mall.tiny.modules.ams.model.*;
-import com.macro.mall.tiny.modules.ams.service.AmsBuyplanService;
-import com.macro.mall.tiny.modules.ams.service.AmsProcessService;
+import com.macro.mall.tiny.modules.ams.service.*;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.macro.mall.tiny.modules.ams.service.AmsReimbursementDetailsService;
-import com.macro.mall.tiny.modules.ams.service.AmsReimbursementService;
 import com.macro.mall.tiny.modules.ums.model.UmsAdmin;
 import com.macro.mall.tiny.modules.ums.service.UmsAdminCacheService;
 import org.springframework.beans.BeanUtils;
@@ -36,7 +33,15 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 	@Autowired
 	AmsReimbursementDetailsService reimbursementDetailsService;
 	@Autowired
-	AmsBuyplanService amsBuyplanService;
+	AmsBuyplanService buyplanService;
+	@Autowired
+	AmsProjectService projectService;
+	@Autowired
+	AmsContractService contractService;
+	@Autowired
+	AmsPayApplyService payApplyService;
+	@Autowired
+	AmsAdvancepayService advancepayService;
 	@Autowired
 	AmsReimbursementMapper reimbursementMapper;
 	
@@ -96,19 +101,24 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 			data.put("billList", reimbursementDetails);
 		}
 		if (apply_type_id.equals(2L)){ //付款申请单详情
-		
+			AmsPayApply payApplyInfo = payApplyService.getInfo(id);
+			data.put("concreteInfo", payApplyInfo);
 		}
 		if (apply_type_id.equals(3L)){ //预付款项报账单详情
-		
+			AmsAdvancepay info = advancepayService.getInfo(id);
+			data.put("concreteInfo", info);
 		}
 		if (apply_type_id.equals(4L)){ //采购计划审批单详情
-		
+			List<AmsBuyplan> info = buyplanService.getInfo(id);
+			data.put("planList", info);
 		}
 		if (apply_type_id.equals(5L)){ //合同会签详情
-		
+			AmsContract info = contractService.getInfo(id);
+			data.put("concreteInfo", info);
 		}
 		if (apply_type_id.equals(6L)){ //工程项目付款审批单详情
-		
+			AmsProject info = projectService.getInfo(id);
+			data.put("concreteInfo", info);
 		}
 		return true;
 	}
@@ -169,7 +179,7 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 			for(AmsBuyplan plan : planDetailsList){
 				plan.setProId(addProcessId);
 			}
-			return amsBuyplanService.saveBatch(planDetailsList);
+			return buyplanService.saveBatch(planDetailsList);
 		}else{
 			return false;
 		}

@@ -12,5 +12,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-01-31
  */
 public interface AmsPayApplyService extends IService<AmsPayApply> {
-
+	AmsPayApply getInfo(Long id);
 }

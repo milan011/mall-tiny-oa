@@ -2,6 +2,7 @@ package com.macro.mall.tiny.modules.ams.service;
 
 import com.macro.mall.tiny.modules.ams.model.AmsContract;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.macro.mall.tiny.modules.ams.model.AmsPayApply;
 
 /**
  * <p>
@@ -12,5 +13,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2023-01-31
  */
 public interface AmsContractService extends IService<AmsContract> {
-
+	AmsContract getInfo(Long id);
 }
