@@ -27,4 +27,7 @@ public interface UmsAdminMapper extends BaseMapper<UmsAdmin> {
 	 * 获取资源相关用户ID列表
 	 */
 	List getAdminByRoleAndDepartement(@Param("roleIds") List roleIds, @Param("departmentIds") List departmentIds);
+	List getAdminByRole(@Param("roleIds") List roleIds);
+	
+	
 }

@@ -45,5 +45,14 @@
 			#{item}
 		</foreach>
 	</select>
-
+	<select id="getAdminByRole" resultMap="examiResultMap">
+		SELECT  a.id, a.nick_name
+		FROM ums_admin a
+		LEFT JOIN ums_admin_role_relation ar ON ar.admin_id = a.id
+		LEFT JOIN ums_user_department_relation ad ON ad.user_id = a.id
+		WHERE ar.role_id IN
+		<foreach collection="roleIds" index="index" item="item" open="(" separator="," close=")">
+			#{item}
+		</foreach>
+	</select>
 </mapper>

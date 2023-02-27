@@ -1,5 +1,6 @@
 package com.macro.mall.tiny.modules.ams.service.impl;
 
+import cn.hutool.core.convert.Convert;
 import cn.hutool.json.JSONUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -83,7 +84,7 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 		UmsAdmin currentAdmin = adminCacheService.getAdminBySecurity();
 		Long currentAdminId = currentAdmin.getId();
 		/*修改审核内容相关*/
-		Integer processId = (Integer) map.get("id");
+		Long processId = Convert.toLong(map.get("id"));
 		AmsProcess process = baseMapper.selectById(processId);
 		HashMap<String, Object> concentMap = new HashMap<>();
 		List<HashMap> concentListMap = new ArrayList<>();
@@ -104,9 +105,12 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 		//JSONObject jsonObject = JSONUtil.parseObj(process.getStepsConcent());
 		/*修改审核状态*/
 		process.setStatus((Integer) map.get("status"));
+		if(map.get("status").equals(1)){ //确定下一步审核人
+			process.setExamineUserId(Convert.toLong(map.get("examineUserId")));
+		}
 		/*关联审核-流程记录关系表*/
 		AmsProcessExamineUser processExamineUser = new AmsProcessExamineUser();
-		processExamineUser.setProcessId(Long.valueOf(processId));
+		processExamineUser.setProcessId(processId);
 		processExamineUser.setExamineUserId(currentAdminId);
 		processExamineUserService.save(processExamineUser);
 		return updateById(process);

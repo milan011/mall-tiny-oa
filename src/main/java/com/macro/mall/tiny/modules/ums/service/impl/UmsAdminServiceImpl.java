@@ -239,7 +239,11 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper,UmsAdmin> im
     List departmentIds = (List) params.get("departments");
     
     //String roles = Convert.toStr(examineRoles);
-    userList = baseMapper.getAdminByRoleAndDepartement(examineRoles, departmentIds);
+    if(roleIds.contains(14)){
+      userList = baseMapper.getAdminByRoleAndDepartement(examineRoles, departmentIds);
+    }else{
+      userList = baseMapper.getAdminByRole(examineRoles);
+    }
     
     return userList;
   }
@@ -269,6 +273,9 @@ public class UmsAdminServiceImpl extends ServiceImpl<UmsAdminMapper,UmsAdmin> im
     //总经理审核角色为董事长
     if(roleIds.contains(10)){
       roles.add(9L);
+    }
+    if(roleIds.contains(9)){
+      roles.add(0L);
     }
     return roles;
   }
