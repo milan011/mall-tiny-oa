@@ -33,7 +33,7 @@
 		left join ums_department d on pr.department_id = d.id
 		<where>
 			pr.status = 1
-			and pr.examine_user_id = #{currentAdminId}
+			and (pr.examine_user_id = #{currentAdminId} or pr.apply_user_id = #{currentAdminId})
 			<if test="applyTypeId != null">
 				and pr.apply_type_id = #{applyTypeId}
 			</if>
@@ -44,10 +44,10 @@
 		order by pr.priority desc, pr.create_time desc
 	</select>
 	<select id="getProcessRecord" resultType="map">
-		select pr.*, ae.nick_name as examineUser, aa.nick_name as applyUser, d.depname from ams_process pr
+		select distinct pr.*, ae.nick_name as examineUser, aa.nick_name as applyUser, d.depname from ams_process pr
 		left join ums_admin ae on pr.examine_user_id = ae.id
 		left join ums_admin aa on pr.apply_user_id = aa.id
-		left join ams_process_examine_user pue on ae.id = pue.examine_user_id
+		left join ams_process_examine_user pue on pr.id = pue.process_id
 		left join ums_department d on pr.department_id = d.id
 		<where>
 			pr.status != 1
