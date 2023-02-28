@@ -24,6 +24,9 @@ public interface AmsProcessService extends IService<AmsProcess> {
 	
 	
 	IPage<AmsProcess> handleList(Long applyTypeId, String nameKeyword,Integer pageNum, Integer pageSize);
+	IPage<AmsProcess> handleRecordList(Long applyTypeId, String nameKeyword,Integer pageNum, Integer pageSize);
+	
+	
 	
 	@Transactional
 	Boolean handleProcess(HashMap<String, Object> map);

@@ -18,5 +18,6 @@ import java.util.HashMap;
 public interface AmsProcessMapper extends BaseMapper<AmsProcess> {
 	IPage<AmsProcess> getHandleProcess(Page<AmsProcess> page, Long currentAdminId, Long applyTypeId, String nameKeyword);
 	
+	IPage<AmsProcess> getProcessRecord(Page<AmsProcess> page, Long currentAdminId, Long applyTypeId, String nameKeyword);
 	HashMap<String, Object> getProcessInfoById(Long id);
 }

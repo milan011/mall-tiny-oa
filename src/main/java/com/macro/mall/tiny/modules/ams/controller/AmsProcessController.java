@@ -44,6 +44,16 @@ public class AmsProcessController {
 		return CommonResult.success(processList);
 	}
 	
+	@ApiOperation("分页查询流程记录")
+	@RequestMapping(value = "/handleRecordList", method = RequestMethod.GET)
+	@ResponseBody
+	public CommonResult<IPage<AmsProcess>> handleRecordList(@RequestParam(required = false) Long applyTypeId,
+																										@RequestParam(required = false) String nameKeyword,
+																										@RequestParam(value = "pageSize", defaultValue = "10") Integer pageSize,
+																										@RequestParam(value = "pageNum", defaultValue = "1") Integer pageNum) {
+		IPage<AmsProcess> processList = amsProcessService.handleRecordList(applyTypeId,nameKeyword,pageNum, pageSize);
+		return CommonResult.success(processList);
+	}
 	/*@ApiOperation("分页查询流程")
 	@RequestMapping(value = "/handleList", method = RequestMethod.GET)
 	@ResponseBody
