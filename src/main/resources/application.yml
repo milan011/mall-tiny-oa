@@ -1,5 +1,6 @@
 server:
   port: 8080
+#  port: 9091
 
 spring:
   application:
@@ -30,8 +31,8 @@ jwt:
 redis:
   database: mall
   key:
-    admin: 'ums:admin'
-    resourceList: 'ums:resourceList'
+    admin: 'ums-oa:admin'
+    resourceList: 'ums-oa:resourceList'
   expire:
     common: 86400 # 24小时
 

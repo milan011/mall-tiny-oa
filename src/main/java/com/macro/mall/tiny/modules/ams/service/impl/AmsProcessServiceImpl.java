@@ -81,11 +81,11 @@ public class AmsProcessServiceImpl extends ServiceImpl<AmsProcessMapper, AmsProc
 		return baseMapper.getHandleProcess(page, currentAdminId,applyTypeId, nameKeyword);
 	}
 	@Override
-	public IPage<AmsProcess> handleRecordList(Long applyTypeId, String nameKeyword, Integer pageNum, Integer pageSize) {
+	public IPage<AmsProcess> handleRecordList(Long applyTypeId, String nameKeyword, Integer status, Integer pageNum, Integer pageSize) {
 		UmsAdmin currentAdmin = adminCacheService.getAdminBySecurity();
-		Long currentAdminId = currentAdmin.getId();
+		Long currentAdminId = Convert.toLong(currentAdmin.getId());
 		Page<AmsProcess> page = new Page<>(pageNum, pageSize);
-		return baseMapper.getProcessRecord(page, currentAdminId,applyTypeId, nameKeyword);
+		return baseMapper.getProcessRecord(page, currentAdminId, status, applyTypeId, nameKeyword);
 	}
 	
 	public Boolean handleProcess(HashMap<String, Object> map){

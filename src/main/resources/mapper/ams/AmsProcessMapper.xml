@@ -50,10 +50,12 @@
 		left join ams_process_examine_user pue on pr.id = pue.process_id
 		left join ums_department d on pr.department_id = d.id
 		<where>
-			pr.status != 1
-			and (pue.examine_user_id = #{currentAdminId} or pr.apply_user_id = #{currentAdminId})
+			(pue.examine_user_id = #{currentAdminId} or pr.apply_user_id = #{currentAdminId})
 			<if test="applyTypeId != null">
 				and pr.apply_type_id = #{applyTypeId}
+			</if>
+			<if test="status != null">
+				and pr.status = #{status}
 			</if>
 			<if test="nameKeyword != null and nameKeyword != ''">
 				and pr.name like concat('%', #{nameKeyword}, '%')
