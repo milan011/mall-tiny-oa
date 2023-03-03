@@ -1,6 +1,6 @@
 server:
-  port: 8080
-#  port: 9091
+#  port: 8080
+  port: 9091
 
 spring:
   application:
@@ -64,8 +64,8 @@ secure:
 aliyun:
   oss:
     endpoint: oss-cn-zhangjiakou.aliyuncs.com # oss对外服务的访问域名
-    accessKeyId: LTAI5tRSjCCvbRZmQFaFfLtZ # 访问身份验证中用到用户标识
-    accessKeySecret: 0Sf3S3g9mckB4sNOyReeZEyZW0dFZa # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
+    accessKeyId: LTAI5tJn7LvqiJKsCyy2u7vr # 访问身份验证中用到用户标识
+    accessKeySecret: VrIrc4lo1PpRDnyZV7gmaDWnm5yamX # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
     bucketName: guoda365 # oss的存储空间
     policy:
       expire: 300 # 签名有效期(S)
