@@ -21,6 +21,7 @@
 		<hutool.version>5.8.0</hutool.version>
 		<mysql-connector.version>8.0.29</mysql-connector.version>
 		<jjwt.version>0.9.1</jjwt.version>
+		<aliyun-oss.version>2.5.0</aliyun-oss.version>
 		<mybatis-plus.version>3.5.1</mybatis-plus.version>
 		<springfox-swagger.version>3.0.0</springfox-swagger.version>
 		<velocity.version>2.3</velocity.version>
@@ -95,6 +96,12 @@
 			<groupId>io.jsonwebtoken</groupId>
 			<artifactId>jjwt</artifactId>
 			<version>${jjwt.version}</version>
+		</dependency>
+		<!-- 阿里云OSS -->
+		<dependency>
+			<groupId>com.aliyun.oss</groupId>
+			<artifactId>aliyun-sdk-oss</artifactId>
+			<version>${aliyun-oss.version}</version>
 		</dependency>
 		<!--lombok依赖-->
 		<dependency>

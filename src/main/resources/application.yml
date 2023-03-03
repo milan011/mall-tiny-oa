@@ -61,3 +61,15 @@ secure:
       - /admin/info
       - /admin/logout
       - /ams/amsActivity/*
+aliyun:
+  oss:
+    endpoint: oss-cn-zhangjiakou.aliyuncs.com # oss对外服务的访问域名
+    accessKeyId: LTAI5tRSjCCvbRZmQFaFfLtZ # 访问身份验证中用到用户标识
+    accessKeySecret: 0Sf3S3g9mckB4sNOyReeZEyZW0dFZa # 用户用于加密签名字符串和oss用来验证签名字符串的密钥
+    bucketName: guoda365 # oss的存储空间
+    policy:
+      expire: 300 # 签名有效期(S)
+    maxSize: 10 # 上传文件大小(M)
+    callback: http://39.104.170.41:9091/aliyun/oss/callback # 文件上传成功后的回调地址
+    dir:
+      prefix: oaimg/ # 上传文件夹路径前缀
